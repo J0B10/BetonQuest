@@ -38,6 +38,7 @@ public class QuestEventAdapter extends QuestEvent {
         this.event = event;
         this.staticEvent = staticEvent;
         staticness = staticEvent != null;
+        persistent = true;
     }
 
     @Override
