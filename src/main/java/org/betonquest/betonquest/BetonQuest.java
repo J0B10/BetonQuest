@@ -135,7 +135,6 @@ import org.betonquest.betonquest.events.TakeEvent;
 import org.betonquest.betonquest.events.TeleportEvent;
 import org.betonquest.betonquest.events.TimeEvent;
 import org.betonquest.betonquest.events.VariableEvent;
-import org.betonquest.betonquest.events.WeatherEvent;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
 import org.betonquest.betonquest.exceptions.ObjectNotFoundException;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
@@ -202,6 +201,7 @@ import org.betonquest.betonquest.objectives.SmeltingObjective;
 import org.betonquest.betonquest.objectives.StepObjective;
 import org.betonquest.betonquest.objectives.TameObjective;
 import org.betonquest.betonquest.objectives.VariableObjective;
+import org.betonquest.betonquest.quest.event.NullStaticEventFactory;
 import org.betonquest.betonquest.quest.event.door.DoorEventFactory;
 import org.betonquest.betonquest.quest.event.journal.JournalEventFactory;
 import org.betonquest.betonquest.quest.event.legacy.FromClassQuestEventFactory;
@@ -1315,7 +1315,19 @@ public class BetonQuest extends JavaPlugin {
     }
 
     /**
-     * Registers an event with its name and a factory to create new instances of the event.
+     * Registers an event that does not support static execution with its name
+     * and a factory to create new normal instances of the event.
+     *
+     * @param name name of the event
+     * @param eventFactory factory to create the event
+     */
+    public void registerEvent(final String name, final EventFactory eventFactory) {
+        registerEvent(name, eventFactory, new NullStaticEventFactory());
+    }
+
+    /**
+     * Registers an event with its name and two factories to create normal and
+     * static instances of the event.
      *
      * @param name name of the event
      * @param eventFactory factory to create the event
