@@ -207,6 +207,7 @@ import org.betonquest.betonquest.quest.event.journal.JournalEventFactory;
 import org.betonquest.betonquest.quest.event.legacy.FromClassQuestEventFactory;
 import org.betonquest.betonquest.quest.event.legacy.QuestEventFactory;
 import org.betonquest.betonquest.quest.event.legacy.QuestEventFactoryAdapter;
+import org.betonquest.betonquest.quest.event.weather.WeatherEventFactory;
 import org.betonquest.betonquest.utils.PlayerConverter;
 import org.betonquest.betonquest.utils.Utils;
 import org.betonquest.betonquest.variables.ConditionVariable;
@@ -776,7 +777,7 @@ public class BetonQuest extends JavaPlugin {
         registerEvents("spawn", SpawnMobEvent.class);
         registerEvents("killmob", KillMobEvent.class);
         registerEvents("time", TimeEvent.class);
-        registerEvents("weather", WeatherEvent.class);
+        registerEvent("weather", new WeatherEventFactory(getServer(), getServer().getScheduler(), this));
         registerEvents("folder", FolderEvent.class);
         registerEvents("setblock", SetBlockEvent.class);
         registerEvents("damage", DamageEvent.class);

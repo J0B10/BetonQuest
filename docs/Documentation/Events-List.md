@@ -602,7 +602,8 @@ storing variables. This event will do nothing if the player does not already hav
 
 ## Weather: `weather`
 
-Sets weather. The argument is `sun`, `rain` or `storm`.
+Sets the weather in the world the player is currently in. The argument is `sun` for clear, sunny weather, `rain` for pure rain,
+`storm` for storm with rain, lightning and thunder or `thunder` for just lighting and thunder with no rain.
 
 !!! example
     ```YAML
