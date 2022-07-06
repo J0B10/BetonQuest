@@ -760,8 +760,7 @@ public class BetonQuest extends JavaPlugin {
         registerEvents("command", CommandEvent.class);
         registerEvents("tag", TagEvent.class);
         registerEvents("globaltag", GlobalTagEvent.class);
-        final JournalEventFactory journalEventFactory = new JournalEventFactory(this, InstantSource.system(), getSaver(), getServer());
-        registerEvent("journal", journalEventFactory, journalEventFactory);
+        registerEvent("journal", new JournalEventFactory(this, InstantSource.system(), getSaver(), getServer()));
         registerEvents("teleport", TeleportEvent.class);
         registerEvents("explosion", ExplosionEvent.class);
         registerEvents("lightning", LightningEvent.class);
@@ -777,10 +776,10 @@ public class BetonQuest extends JavaPlugin {
         registerEvents("spawn", SpawnMobEvent.class);
         registerEvents("killmob", KillMobEvent.class);
         registerEvents("time", TimeEvent.class);
-        registerEvent("weather", new WeatherEventFactory(getServer(), getServer().getScheduler(), this));
+        registerNonStaticEvent("weather", new WeatherEventFactory(getServer(), getServer().getScheduler(), this));
         registerEvents("folder", FolderEvent.class);
         registerEvents("setblock", SetBlockEvent.class);
-        registerEvent("damage", new DamageEventFactory(getServer(), getServer().getScheduler(), this));
+        registerNonStaticEvent("damage", new DamageEventFactory(getServer(), getServer().getScheduler(), this));
         registerEvents("party", PartyEvent.class);
         registerEvents("clear", ClearEvent.class);
         registerEvents("run", RunEvent.class);
@@ -1319,19 +1318,31 @@ public class BetonQuest extends JavaPlugin {
      * Registers an event that does not support static execution with its name
      * and a factory to create new normal instances of the event.
      *
-     * @param name name of the event
+     * @param name         name of the event
      * @param eventFactory factory to create the event
      */
-    public void registerEvent(final String name, final EventFactory eventFactory) {
+    public void registerNonStaticEvent(final String name, final EventFactory eventFactory) {
         registerEvent(name, eventFactory, new NullStaticEventFactory());
+    }
+
+    /**
+     * Registers an event with its name and a single factory to create both normal and
+     * static instances of the event.
+     *
+     * @param name         name of the event
+     * @param eventFactory factory to create the event and the static event
+     * @param <T>          type of factory that creates both normal and static instances of the event.
+     */
+    public <T extends EventFactory & StaticEventFactory> void registerEvent(final String name, final T eventFactory) {
+        registerEvent(name, eventFactory, eventFactory);
     }
 
     /**
      * Registers an event with its name and two factories to create normal and
      * static instances of the event.
      *
-     * @param name name of the event
-     * @param eventFactory factory to create the event
+     * @param name               name of the event
+     * @param eventFactory       factory to create the event
      * @param staticEventFactory factory to create the static event
      */
     public void registerEvent(final String name, final EventFactory eventFactory, final StaticEventFactory staticEventFactory) {
