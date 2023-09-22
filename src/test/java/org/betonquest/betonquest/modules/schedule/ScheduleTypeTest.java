@@ -1,6 +1,7 @@
 package org.betonquest.betonquest.modules.schedule;
 
 import org.betonquest.betonquest.api.config.quest.QuestPackage;
+import org.betonquest.betonquest.api.schedule.BaseSchedule;
 import org.betonquest.betonquest.api.schedule.Schedule;
 import org.betonquest.betonquest.api.schedule.Scheduler;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
@@ -100,7 +101,7 @@ class ScheduleTypeTest {
     /**
      * Class extending a schedule without any changes.
      */
-    private static class MockedSchedule extends Schedule {
+    private static class MockedSchedule extends BaseSchedule {
 
         /**
          * Creates new instance of the schedule.
@@ -117,7 +118,7 @@ class ScheduleTypeTest {
     /**
      * Class extending a schedule with a constructor that differs from the required signature.
      */
-    private static class InvalidConstructorSchedule extends Schedule {
+    private static class InvalidConstructorSchedule extends BaseSchedule {
 
         /**
          * Creates new instance of the schedule.
@@ -135,7 +136,7 @@ class ScheduleTypeTest {
     /**
      * Class extending a schedule that throws an unchecked event in its constructor.
      */
-    private static class ThrowingUncheckedSchedule extends Schedule {
+    private static class ThrowingUncheckedSchedule extends BaseSchedule {
 
         /**
          * Creates new instance of the schedule.

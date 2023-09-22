@@ -27,7 +27,7 @@ class SchedulerTest {
     void testAddSchedule() {
         final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
         final ScheduleID scheduleID = mock(ScheduleID.class);
-        final Schedule schedule = mock(Schedule.class);
+        final Schedule schedule = mock(BaseSchedule.class);
         when(schedule.getId()).thenReturn(scheduleID);
         scheduler.addSchedule(schedule);
         assertTrue(scheduler.schedules.containsValue(schedule), "Schedules map should contain schedule");
@@ -47,7 +47,7 @@ class SchedulerTest {
     void testStop() {
         final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
         final ScheduleID scheduleID = mock(ScheduleID.class);
-        final Schedule schedule = mock(Schedule.class);
+        final Schedule schedule = mock(BaseSchedule.class);
         scheduler.schedules.put(scheduleID, schedule);
         scheduler.start();
         assertTrue(scheduler.isRunning(), "isRunning should be true after start is called");
@@ -61,7 +61,7 @@ class SchedulerTest {
     void testExecuteEvents() {
         try (MockedStatic<BetonQuest> betonQuest = mockStatic(BetonQuest.class)) {
             final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
-            final Schedule schedule = mock(Schedule.class);
+            final Schedule schedule = mock(BaseSchedule.class);
             when(schedule.getId()).thenReturn(mock(ScheduleID.class));
             final EventID eventA = mock(EventID.class);
             final EventID eventB = mock(EventID.class);

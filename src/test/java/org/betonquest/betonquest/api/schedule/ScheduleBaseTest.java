@@ -14,8 +14,8 @@ import static org.mockito.Mockito.*;
 public class ScheduleBaseTest extends AbstractScheduleTest {
 
     @Override
-    protected Schedule createSchedule() throws InstructionParseException {
-        return new Schedule(scheduleID, section) {
+    protected BaseSchedule createSchedule() throws InstructionParseException {
+        return new BaseSchedule(scheduleID, section) {
         };
     }
 
@@ -37,7 +37,7 @@ public class ScheduleBaseTest extends AbstractScheduleTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
     public void testScheduleValidLoad() throws InstructionParseException {
-        final Schedule schedule = createSchedule();
+        final BaseSchedule schedule = createSchedule();
         assertEquals(scheduleID, schedule.getId(), "Schedule should return the id it was constructed with");
         assertEquals("22:00", schedule.getTime(), "Returned time should be correct");
         assertEquals(CatchupStrategy.NONE, schedule.getCatchup(), "Returned catchup strategy should be correct");

@@ -1,6 +1,6 @@
 package org.betonquest.betonquest.modules.schedule.impl.realtime.daily;
 
-import org.betonquest.betonquest.api.schedule.Schedule;
+import org.betonquest.betonquest.api.schedule.BaseSchedule;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
 import org.betonquest.betonquest.modules.schedule.ScheduleID;
 import org.bukkit.configuration.ConfigurationSection;
@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
  * Time is just {@code HH:mm} format (e.g. 14:45)
  * and defines the time of day when the events from this schedule will be run.
  */
-public class RealtimeDailySchedule extends Schedule {
+public class RealtimeDailySchedule extends BaseSchedule {
 
     /**
      * The DateTimeFormatter used for parsing the time strings.

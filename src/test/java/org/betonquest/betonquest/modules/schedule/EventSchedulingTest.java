@@ -6,6 +6,7 @@ import org.betonquest.betonquest.api.bukkit.config.custom.multi.MultiConfigurati
 import org.betonquest.betonquest.api.bukkit.config.custom.multi.MultiSectionConfiguration;
 import org.betonquest.betonquest.api.config.quest.QuestPackage;
 import org.betonquest.betonquest.api.logger.BetonQuestLogger;
+import org.betonquest.betonquest.api.schedule.BaseSchedule;
 import org.betonquest.betonquest.api.schedule.Schedule;
 import org.betonquest.betonquest.api.schedule.Scheduler;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
@@ -199,7 +200,7 @@ class EventSchedulingTest {
     /**
      * Class extending a schedule without any changes.
      */
-    private static class MockedSchedule extends Schedule {
+    private static class MockedSchedule extends BaseSchedule {
 
         private MockedSchedule(final ScheduleID scheduleID, final ConfigurationSection instruction) throws InstructionParseException {
             super(scheduleID, instruction);

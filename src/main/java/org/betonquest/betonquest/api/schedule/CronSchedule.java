@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * A schedule using <a href="https://crontab.guru/">cron syntax</a> for defining time instructions.
  */
-public abstract class CronSchedule extends Schedule {
+public abstract class CronSchedule extends BaseSchedule {
 
     /**
      * The unix cron syntax shall be used by default.
