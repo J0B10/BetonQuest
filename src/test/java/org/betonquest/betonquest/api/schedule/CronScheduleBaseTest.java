@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
  * These tests should ensure that the parsing of cron schedules works properly.
  */
 @SuppressWarnings({"PMD.TooManyStaticImports", "PMD.JUnit5TestShouldBePackagePrivate"})
-public class CronScheduleBaseTest extends ScheduleBaseTest {
+public class CronScheduleBaseTest extends BaseScheduleTest {
 
     @Override
     protected CronSchedule createSchedule() throws InstructionParseException {

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
  * Test Scheduler class.
  */
 @ExtendWith(MockitoExtension.class)
-class SchedulerTest {
+class BaseSchedulerTest {
     @Mock
     private BetonQuestLogger logger;
 

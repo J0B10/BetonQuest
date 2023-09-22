@@ -1,6 +1,6 @@
 package org.betonquest.betonquest.modules.schedule.impl.realtime.daily;
 
-import org.betonquest.betonquest.api.schedule.ScheduleBaseTest;
+import org.betonquest.betonquest.api.schedule.BaseScheduleTest;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
  * Tests for the daily realtime schedule.
  */
 @ExtendWith(MockitoExtension.class)
-class RealtimeDailyScheduleTest extends ScheduleBaseTest {
+class RealtimeDailyScheduleTest extends BaseScheduleTest {
 
     /**
      * The DateTimeFormatter used for parsing the time strings.
