@@ -25,9 +25,9 @@ class SchedulerTest {
 
     @Test
     void testAddSchedule() {
-        final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
+        final BaseScheduler<Schedule> scheduler = new MockedScheduler(logger);
         final ScheduleID scheduleID = mock(ScheduleID.class);
-        final Schedule schedule = mock(BaseSchedule.class);
+        final Schedule schedule = mock(Schedule.class);
         when(schedule.getId()).thenReturn(scheduleID);
         scheduler.addSchedule(schedule);
         assertTrue(scheduler.schedules.containsValue(schedule), "Schedules map should contain schedule");
@@ -36,7 +36,7 @@ class SchedulerTest {
 
     @Test
     void testStart() {
-        final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
+        final BaseScheduler<Schedule> scheduler = new MockedScheduler(logger);
         assertFalse(scheduler.isRunning(), "isRunning should be false before start is called");
         scheduler.start();
         assertTrue(scheduler.isRunning(), "isRunning should be true after start is called");
@@ -45,9 +45,9 @@ class SchedulerTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
     void testStop() {
-        final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
+        final BaseScheduler<Schedule> scheduler = new MockedScheduler(logger);
         final ScheduleID scheduleID = mock(ScheduleID.class);
-        final Schedule schedule = mock(BaseSchedule.class);
+        final Schedule schedule = mock(Schedule.class);
         scheduler.schedules.put(scheduleID, schedule);
         scheduler.start();
         assertTrue(scheduler.isRunning(), "isRunning should be true after start is called");
@@ -60,8 +60,8 @@ class SchedulerTest {
     @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     void testExecuteEvents() {
         try (MockedStatic<BetonQuest> betonQuest = mockStatic(BetonQuest.class)) {
-            final Scheduler<Schedule> scheduler = new MockedScheduler(logger);
-            final Schedule schedule = mock(BaseSchedule.class);
+            final BaseScheduler<Schedule> scheduler = new MockedScheduler(logger);
+            final Schedule schedule = mock(Schedule.class);
             when(schedule.getId()).thenReturn(mock(ScheduleID.class));
             final EventID eventA = mock(EventID.class);
             final EventID eventB = mock(EventID.class);
@@ -75,7 +75,7 @@ class SchedulerTest {
     /**
      * Class extending a scheduler without any changes.
      */
-    private static class MockedScheduler extends Scheduler<Schedule> {
+    private static class MockedScheduler extends BaseScheduler<Schedule> {
         /**
          * Default constructor.
          *

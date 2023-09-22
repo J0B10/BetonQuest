@@ -10,7 +10,7 @@ import java.util.List;
  *
  * <p>
  * While this Interface provides basic information about a schedule like the list of events that will be run or the
- * time at which they will be run next, the actual scheduling logic is defined by the scheduler.
+ * time at which they will be run next, the actual scheduling logic is defined by the {@link Scheduler}.
  * </p>
  * <p>
  * Different types of schedules may use different data types to handle time.

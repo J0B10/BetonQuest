@@ -1,9 +1,9 @@
 package org.betonquest.betonquest.modules.schedule.impl;
 
 import org.betonquest.betonquest.api.logger.BetonQuestLogger;
+import org.betonquest.betonquest.api.schedule.BaseScheduler;
 import org.betonquest.betonquest.api.schedule.CatchupStrategy;
 import org.betonquest.betonquest.api.schedule.Schedule;
-import org.betonquest.betonquest.api.schedule.Scheduler;
 import org.betonquest.betonquest.modules.schedule.impl.realtime.daily.RealtimeDailyScheduler;
 import org.jetbrains.annotations.VisibleForTesting;
 
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
  * @param <S> Type of Schedule
  */
 @SuppressWarnings("PMD.DoNotUseThreads")
-public abstract class ExecutorServiceScheduler<S extends Schedule> extends Scheduler<S> {
+public abstract class ExecutorServiceScheduler<S extends Schedule> extends BaseScheduler<S> {
     /**
      * Maximum time that the scheduler will wait on shutdown/reload for currently executing schedules.
      */

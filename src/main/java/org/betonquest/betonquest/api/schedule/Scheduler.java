@@ -1,19 +1,8 @@
 package org.betonquest.betonquest.api.schedule;
 
-import org.betonquest.betonquest.BetonQuest;
-import org.betonquest.betonquest.api.logger.BetonQuestLogger;
-import org.betonquest.betonquest.id.EventID;
-import org.betonquest.betonquest.modules.schedule.ScheduleID;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * <p>
- * Superclass of all event schedulers.
- * While {@link Schedule} holds the data and settings of a schedule, children of this class should contain the logic for
- * scheduling of events.
- * </p>
+ * A scheduler manages all schedules of a specific type and is responsible for executing them at the correct time.
+ *
  * <p>
  * When loading the configs,
  * new schedules are parsed and registered in the matching Scheduler by calling {@link #addSchedule(Schedule)}.
@@ -24,35 +13,9 @@ import java.util.Map;
  * Also, this class should implement the {@link CatchupStrategy} required by the schedule.
  * </p>
  *
- * @param <S> Type of Schedule
+ * @param <S> Type of Schedule that this scheduler manages
  */
-@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
-public abstract class Scheduler<S extends Schedule> {
-    /**
-     * Map containing all schedules that belong to this scheduler.
-     */
-    protected final Map<ScheduleID, S> schedules;
-
-    /**
-     * Custom {@link BetonQuestLogger} instance for this class.
-     */
-    private final BetonQuestLogger log;
-
-    /**
-     * Flag stating if this scheduler is currently running.
-     */
-    private boolean running;
-
-    /**
-     * Default constructor.
-     *
-     * @param log the logger that will be used for logging
-     */
-    public Scheduler(final BetonQuestLogger log) {
-        this.log = log;
-        schedules = new HashMap<>();
-        running = false;
-    }
+public interface Scheduler<S extends Schedule> {
 
     /**
      * Register a new schedule to the list of schedules managed by this scheduler.
@@ -60,9 +23,7 @@ public abstract class Scheduler<S extends Schedule> {
      *
      * @param schedule schedule object to register
      */
-    public void addSchedule(final S schedule) {
-        schedules.put(schedule.getId(), schedule);
-    }
+    void addSchedule(S schedule);
 
     /**
      * <p>
@@ -77,9 +38,7 @@ public abstract class Scheduler<S extends Schedule> {
      * When overriding this method, make sure to call {@code super.start()} at some point to update the running flag.
      * </b></p>
      */
-    public void start() {
-        running = true;
-    }
+    void start();
 
     /**
      * <p>
@@ -90,10 +49,7 @@ public abstract class Scheduler<S extends Schedule> {
      * When overriding this method, make sure to call {@code super.stop()} at some point to clear the map of schedules.
      * </b></p>
      */
-    public void stop() {
-        running = false;
-        schedules.clear();
-    }
+    void stop();
 
     /**
      * This method shall be called whenever the execution time of a schedule is reached.
@@ -101,19 +57,12 @@ public abstract class Scheduler<S extends Schedule> {
      *
      * @param schedule a schedule that reached execution time, providing a list of events to run
      */
-    protected void executeEvents(final S schedule) {
-        log.debug(schedule.getId().getPackage(), "Schedule '" + schedule.getId() + "' runs its events...");
-        for (final EventID eventID : schedule.getEvents()) {
-            BetonQuest.event(null, eventID);
-        }
-    }
+    void executeEvents(S schedule);
 
     /**
      * Check if this scheduler is currently running.
      *
      * @return true if currently running, false if not (e.g. during startup or reloading)
      */
-    public boolean isRunning() {
-        return running;
-    }
+    boolean isRunning();
 }
